@@ -1,0 +1,40 @@
+<STYLE type="text/css">
+   select { width: 100%; height: auto;}
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+</STYLE>
+
+<div id="menu_management" class="tane-widget-top ui-widget-content ui-state-default">
+<div class="panel-heading bg-primary">
+  <a title="Close" class="ui-icon ui-icon-close">Close</a>
+  <a title="Minimize" class="ui-icon ui-icon-minus">Minimize</a>
+  <h3 class="panel-title ui-title">Menu Management</h3>
+</div>
+
+<div class="panel-body">
+  <div class="container-fluid">
+    <div class="row row-eq-height"">
+      <div id='_menu_management-1'  class="col-md-3 ui-widget-content work"></div>
+      <div class="col-md-4 ui-widget-content">
+        <div id='_menu_management-2-1' class="work"></div>
+        <div id='_menu_management-2-2' class="work"></div>
+      </div>
+      <div id='_menu_management-3'  class="col-md-5 ui-widget-content work"></div>
+    </div><!-- row-eq-height -->
+  </div><!-- container-fluid -->  
+</div>
+
+<script>
+$("#_menu_management-1").SimpleUI({name:'menulist', template:'templates/menus/menulist.template'});
+$("#_menu_management-2-1").SimpleUI({name:'menu_definition', template:'templates/menus/menu_definition_form.template'});
+$("#_menu_management-2-2").SimpleUI({name:'item_list', template:'templates/menus/itemlist.template'});
+$("#_menu_management-3").SimpleUI({name:'item_definition', template:'templates/menus/item_definition_form.template'});
+</script>
+</div>

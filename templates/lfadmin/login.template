@@ -1,0 +1,35 @@
+<div class="tane-widget-top resizable draggable panel panel-default ui-widget">
+  <div class="panel-heading bg-primary">
+    <h3 class="panel-title ui-title">Lambfox Administration Console</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="col-sm-12">
+      <h1>Lambfox Administration</h1>
+      <section>
+        <hr>
+        <form class="form-group">
+          Login with your email address
+          <input type="text" title="email" class="form-control textinput required" x-data-keyname="email" x-data-idAttribute="true"></input>
+          <br/>
+          <button type="button" class="btn btn-primary simple_button">OK</button>
+        </form>     
+        <hr>           
+        <form class="form_validate">
+          Or login with one of the following ID.
+          <ul class="selectable list-inline" x-data-selectableType="static" x-data-keyname="provider">
+            <li class="ui-selectable" x-data-value="twitter"><img src="Icons/PNG/twitter256.png" width="50" height="50"></img></li>
+            <li class="ui-selectable" x-data-value="google"><img src="Icons/PNG/google256.png" width="50" height="50"></img></li>
+            <li class="ui-selectable" x-data-value="facebook"><img src="Icons/PNG/facebook256.png" width="50" height="50"></img></li>
+            <li class="ui-selectable" x-data-value="github"><img src="Icons/PNG/github256.png" width="50" height="50"></img></li>
+          </ul>
+          <button type="button" class="btn btn-primary simple_button">Login
+            <script class="xeventTmpl" x-data-templateType="keyname" type="text/x-jquery-tmpl">
+             type=public;destination=firebase;eventName=login
+            </script>
+          </button>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

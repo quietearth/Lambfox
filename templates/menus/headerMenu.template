@@ -1,0 +1,50 @@
+<style>
+  .itemstyle { margin: 3px; padding: 0.4em; float: left; text-align: center;}
+  #header { 
+     list-style-type: none; 
+	 width: 100%; 
+	 vertical-align: middle;
+  }
+  #_headermenu { list-style-type: none; margin: 0; padding: 0;}
+</style>
+
+<div class="tane-widget-top ui-widget-content ui-state-default" x-init-event="public/do/lambfoxbase/get?pathname=apps/RelaxationSpace/menus/Header">
+
+<table id="header" class="bg-primary container">
+ <tr class="row">
+  <td class="col-md-2"><img src="Icons/PNG/Leafie_Icon_48.png" class="img-responsive"></img></td>
+  <td class="col-md-8"><h3 class="ui-title">LambFox Menu</h3></td>
+  <td class="col-md-2 form-inline form-group">
+    <button type="button" class="btn simple_button" x-data-xevent="public/do/lambfoxbase/signOut">Sign out</button></div>
+  </td>
+ </tr>
+</table>
+
+<div class="panel-body">
+ <ul id="_headermenu" class="indexarray">
+  <script type="text/x-jquery-tmpl" class="jqtmpl">
+   <li class="ui-selectable itemstyle bg-info">${displayname}</li>
+  </script>
+ </ul>
+</div>
+
+<div class="simple_dialog">
+  <div class="simple_dialog_content" x-data-message="success">
+    <section class="static_element">Success
+      <script type="text/template" class="jqtmpl">
+        <p>>${user}</li>
+      </script>    
+    <section>    
+    <button type="button" class="btn simple_button" x-data-xevent="public/do/widgetManager/start?name=TaneLogin" x-data-xeventOption="sec0" x-data-localevent="close">OK</button>
+  </div>
+  <div class="simple_dialog_content" x-data-message="error">
+    <section class="static_element">Error
+      <script type="text/template" class="jqtmpl">
+        <p>>${code}</li>
+      </script>    
+    <section>    
+    <button type="button" class="btn simple_button" x-data-localevent="close">OK</button>
+  </div>
+</div>
+
+</div>

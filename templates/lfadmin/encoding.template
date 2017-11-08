@@ -1,0 +1,32 @@
+<div class="tane-widget-top ui-widget-content ui-corner-tr">
+
+<form class="form-group">
+  <section><h4>Encoding & Packaging:</h4><section>
+    <script type="text/template" class="jqtmpl">
+      <section><h4>Widget Name: ${widgetName}</h4><section>
+    </script>
+  </section>
+  <br>
+  <div>
+  Type:
+  <input type="text" placeholder="url" class="form-control textinput" x-data-keyname="type"></input><br />
+  URL:
+  <input type="text" class="form-control textinput" x-data-keyname="url"></input><br />
+
+  Access Key:
+  <input type="text" class="form-control textinput" x-data-keyname="accessKey"></input><br />
+  Secret Key:
+  <input type="text" class="form-control textinput" x-data-keyname="secretKey"></input><br />
+  Bucket Name:
+  <input type="text" class="form-control textinput" x-data-keyname="bucket"></input><br />
+  Full pathname
+  <input type="text" class="form-control textinput" x-data-keyname="objectKey"></input><br />
+
+  <button type="button" x-data-xevent="public/do/BitmovinRESTAPI/createInputs" class="btn simple_button">Create</button>
+  <button type="button">Clear</button>
+  <button type="button">Cancel</button>  
+  <br />
+  </div>
+</form>
+
+</div>

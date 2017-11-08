@@ -1,0 +1,79 @@
+<div class="tane-widget-top" x-init-event="public/do/lambfoxbase/list?yourApp:lambfox/apps" x-data-dataname="yourApp:lambfox/apps">
+   <div class="panel-heading bg-primary">
+     <a title="Close" class="ui-icon ui-icon-close">Close</a>
+     <a title="Minimize" class="ui-icon ui-icon-minus">Minimize</a>
+     <h3 class="panel-title ui-title">Menu Management</h3>
+   </div>
+   <div class="panel-body bg-info">
+      <div class="uispec">
+         <section><h4>Select Application</h4>
+            <ul class="indexarray list-group"  x-data-localevent="set" x-extpath="true">
+               <script type="text/template" class="jqtmpl">
+                  <li class="ui-selectable list-group-item">${AppName}</li>
+               </script>    
+            </ul>
+         <section>
+      </div>
+
+      <div class="uispec" x-data-dataframe="/.+">
+         <section><h4>Menus items</h4>
+            <ul class="indexarray list-group" x-data-keyname="menus" x-data-localevent="set">
+               <script type="text/template" class="jqtmpl">
+                  <li class="ui-selectable list-group-item">${menuname}</li>
+               </script>    
+            </ul>
+         <section>
+      </div>
+      <div class="uispec" x-data-dataframe="/.+/menus/.+">
+         <p>Menu Name</p>
+         <input type="text" placeholder="Menu Name" class="form-control textinput" x-data-keyname="menuname" x-data-idAttribute="true">
+         <br>
+
+         <p>Description</p>
+         <input type="text" placeholder="Descriptin" class="form-control textinput" x-data-keyname="menu_description">
+         <br>
+
+         <button type="button" x-data-xevent="public/do/lambfoxbase/create" class="btn simple_button">Create</button>
+         <button type="button" x-data-xevent="public/do/lambfoxbase/remove" class="btn simple_button">Delete</button>
+         <br><br>
+      </div>
+      <div class="uispec" x-data-dataframe="/.+/menus/.+">
+         <p>Menu item list:</p>
+         <ul class="indexarray list-group" x-data-keyname="items">
+            <script type="text/html" class="jqtmpl" x-data-idKeyName="itemname">
+               <li class="ui-selectable list-group-item">${displayname}</li>
+            </script>
+         </ul>
+
+         <div class="static_element" x-data-keyname="itemname">
+            <section><h3>Menu Name:</h3><br/><h4>Item Title:</h4><section>
+            <script type="text/template" class="jqtmpl">
+               <section><h4>Item Title: ${itemname}</h4><section>
+            </script>
+         </div>
+         <div class="uispec" x-data-dataframe="/.+/menus/.+/items/.+">
+		   	Item Identical Name(nodename)
+            <input type="text" class="form-control textinput" x-data-keyname="itemname" x-data-idAttribute="true"></input>
+            <br>
+	   		Display Title
+            <input type="text" class="form-control textinput" x-data-keyname="displayname"></input>
+            <br>
+   			Icon filename
+            <input type="text" class="form-control textinput" x-data-keyname="icon"></input>
+            <br>
+			   event
+            <input type="text" class="form-control textinput" x-data-keyname="event"></input>
+            <br>
+		   	data
+            <input type="text" class="form-control textinput" x-data-keyname="data"></input>
+            <br>
+	   		option
+            <input type="text" class="form-control textinput" x-data-keyname="option"></input>
+            <br>
+            <button type="button" class="btn simple_button" x-data-xevent="public/do/lambfoxbase/create" x-data-createdata="true">Create</button>
+            <button type="button" class="btn simple_button" x-data-xevent="public/do/lambfoxbase/set">Update</button>
+            <button type="button" class="btn simple_button" x-data-xevent="public/do/lambfoxbase/remove">Delete</button>
+         </div>
+      </div>            
+   </div>
+</div>

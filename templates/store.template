@@ -1,0 +1,17 @@
+
+  
+<div class="tane-widget-top ui-widget ui-widget-content ui-state-default" x-init-event="public/do/lambfoxbase/get?pathname=Store/channels">
+  <div class="panel-body bg-info">
+    <ul class="indexarray list-group" x-data-localevent="set">
+      <script type="text/html" class="jqtmpl">
+        <li class="ui-selectable">${description}</li>
+      </script>
+    </ul>
+    <br /><br />
+    <ul class="indexarray list-group" x-data-keyname="items" x-data-xevent="public/do/BitmovinPlayer/play" x-data-xeventOption="sec2">
+      <script type="text/html" class="jqtmpl">
+        <li class="ui-selectable">${title}</li>
+      </script>
+    </ul>    
+  </div>
+</div>

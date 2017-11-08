@@ -1,0 +1,14 @@
+<STYLE type="text/css">
+
+</STYLE>
+
+<div class="tane-widget-top">
+  <div class="panel ui-widget-content ui-state-default">
+    <br/>
+    <ul class="selectable list-inline">
+      <script type="text/template" class="jqtmpl">
+        <li class="ui-selectable" x-event="public/event/widgetManager/show"><img src=${icon} width="50" height="50"></img><br />${name}</li>
+      </script>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="tane-widget-top ui-widget">
+<div class="simple_dialog" title="Signup confirmation">
+  <div class="simple_dialog_content" x-data-message="success">
+    <section class="static_element">Success
+      <script type="text/template" class="jqtmpl">
+        <p>>${user}</li>
+      </script>    
+    <section>    
+    <button type="button" class="btn simple_button" x-data-xevent="public/do/widgetManager/showReward" x-data-xeventOption="sec0" x-data-localevent="close">OK</button>
+  </div>
+  <div class="simple_dialog_content" x-data-message="error">
+    <section class="static_element">Error
+      <script type="text/template" class="jqtmpl">
+        <p>>${code}</li>
+      </script>    
+    <section>    
+    <button type="button" class="btn simple_button" x-data-localevent="close">OK</button>
+  </div>
+  
+</div>
+
+<div class="ui-widget-content">
+  <h4>USER Registration</h4>
+
+  <form class="form_validate">
+     Your email address(Your Account):
+     <input type="text" pattern="[A-Za-z]{8}" class="form-control textinput required" x-data-keyname="email"></input>
+     <br />
+     password:
+     <input type="password" pattern="[A-Za-z]{8}" class="form-control textinput required" x-data-keyname="password"></input>
+     <br />
+     password(confirm):
+     <input type="password" pattern="[A-Za-z]{8}" class="form-control textinput required" x-data-keyname="password2"></input>
+     <br />
+     Your First Name:
+     <input pattern="[A-Za-z]{8}" class="form-control textinput required" x-data-keyname="firstname"></input>
+     Your Family Name:
+     <input pattern="[A-Za-z]{8}" class="form-control textinput required" x-data-keyname="lastname"></input>
+     <br />
+     Address:
+     <input class="form-control textinput required" x-data-keyname="address"></input>
+     <br />    
+     <button type="button" class="btn simple_button" x-data-xevent="type=public;destination=lambfoxbase;eventName=createUser">Submit</button>
+     <button type="button" class="btn simple_button" x-data-xevent="public/do/widgetManager/showReward" x-data-xeventOption="sec0">Cancel</button>
+     <br />
+  </form>
+</div>
+
+</div>
