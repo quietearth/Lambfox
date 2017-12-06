@@ -18,7 +18,10 @@ var SimpleSelectableList = TaneBaseView.extend({
 	   this.type = this.$el.attr('x-data-selectableType');
 
       _.bindAll(this, 'render', 'click', 'selected', 'add', 'change');
-      this.$el.selectable({ selected: this.selected });
+      this.$el.selectable({ 
+         selected: this.selected,
+         filter: ".x-selectable-event"
+       });
    },
 
    click: function(e) {
@@ -112,6 +115,7 @@ var SimpleSelectableList = TaneBaseView.extend({
             helper: "clone",
          });
 	   }
+	   $(item).focus(0);
 	   if(this.balloon)　$(item).balloon();
       this.size+=1;
 

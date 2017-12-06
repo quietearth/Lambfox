@@ -1,16 +1,24 @@
 <style>
-  .itemstyle { margin: 3px; padding: 0.4em; float: left; text-align: center;}
-  #header { 
-     list-style-type: none; 
-	 width: 100%; 
-	 vertical-align: middle;
-  }
-  #_headermenu { list-style-type: none; margin: 0; padding: 0;}
+.panel-body { 
+   background: #ccc;
+   list-style-type: none; 
+   margin: 0; 
+   padding: 0;
+}
+
+.panel-body li { 
+   list-style-type: none;
+   margin: 3px; 
+   padding: 0.4em; 
+   float: left;
+   text-align: center;
+}
+
 </style>
 
 <div class="tane-widget-top ui-widget-content ui-state-default" x-init-event="public/do/lambfoxbase/get?pathname=apps/RelaxationSpace/menus/Header">
 
-<table id="header" class="bg-primary container">
+<table class="bg-primary container">
  <tr class="row">
   <td class="col-md-2"><img src="Icons/PNG/Leafie_Icon_48.png" class="img-responsive"></img></td>
   <td class="col-md-8"><h3 class="ui-title">LambFox Menu</h3></td>
@@ -21,9 +29,9 @@
 </table>
 
 <div class="panel-body">
- <ul id="_headermenu" class="indexarray">
+ <ul class="indexarray list-group">
   <script type="text/x-jquery-tmpl" class="jqtmpl">
-   <li class="ui-selectable itemstyle bg-info">${displayname}</li>
+   <li class="ui-selectable x-selectable-event itemstyle bg-info">${displayname}</li>
   </script>
  </ul>
 </div>

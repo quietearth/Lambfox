@@ -1,0 +1,53 @@
+<STYLE type="text/css">
+ul {
+  list-style:none;
+}
+
+.array{
+   background: #ccc;
+   width:500px;
+   height:400px;
+   position: relative;
+   border-radius:10px;
+   box-shadow: 10px 10px 10px rgba(0,0,0,0.4); 
+   text-align: center;
+   margin:0 auto;
+   top: 10px;
+}
+
+.array img{
+  width: 95%;
+  position: absolute;
+  top: 5%;
+  right: 0;
+  bottom: 1;
+  left: 0;
+  margin: auto;
+}
+
+.array div{
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  margin: auto;
+  text-align: left;  
+  font-family: "Dosis";  
+}
+
+</STYLE>
+
+<div class="tane-widget-top" x-init-event="public/do/lambfoxbase/get?pathname=Store/channels/1/items">
+   <ul class="indexarray" x-data-xevent="public/do/VRViewPlayer/play" x-data-xeventOption="sec1">
+      <script type="text/html" class="jqtmpl" x-data-idKeyName="id">
+         <li class="x-selectable-event">
+            <div class="array">
+               <img src="${poster}"></img><br>
+               <div>${description}</div>
+            </div>
+            <br>
+         </li>
+      </script>
+   </ul>
+   
+</div>
+

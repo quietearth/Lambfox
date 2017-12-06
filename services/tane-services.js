@@ -24,30 +24,37 @@
 		},
       transReceivedData(apidef, event, data){
 		   if(RegExp('json','i').test(apidef.accept)){
-		      return data.getDataValue('response');
+		      return data.getData('response');
          }else{
-			   return {'data': data.getDataValue('response')};
+			   return {'data': data.getData('response')};
 			}
 	   },
       getEventContext: function(apidef){return "local/api/"+apidef.apiname+"/response"},
       setContext: function(apidef, event, data) {return data;},
 
-      taneServiceBaseGlobalEventHandler: function(event, data){
+      taneServiceBaseGlobalEventHandler: function(event, model){
          var apidef = this.apidef[event.eventName()];
          if($.isEmptyObject(apidef)){
             return;
          }
-         this.setURI(apidef, event, data);
-         var apidata = this.transAPIData(apidef, event, data);
-
+         if(!model) var data = "";
+         else var data = model.getData();
+         var args = {
+            serviceInfo: this.serviceInfo,                
+            apidef: apidef, 
+            data: this.transAPIData(apidef, event, data),
+            uri: this.setURI(apidef, event, data),
+            origin: event.originName()
+         };
+            
          switch(apidef.method){
          case "POST":
          case "PUT":
          case "DELETE":
-            this.svc.POST(apidef, apidata, this.serviceInfo, event.originName());
+            this.svc.POST(args);
             break;
          case "GET":
-            this.svc.GET(apidef, apidata, this.serviceInfo, event.originName());
+            this.svc.GET(args);
             break;
          }
       },
@@ -56,96 +63,12 @@
          if(event.eventName()=="response"){
    			var trns = this.transReceivedData(apidef, event, data);
 				var taneModel = new TaneModel(trns);
-		      var outevent = new TaneEvent(this.widgetName).eventName(apidef.outboundEvent).destination(option);
+		      var outevent = new TaneEvent(this.options.name).eventName(apidef.outboundEvent).destination(option);
             this.pubGlobalEvent(outevent, taneModel, this.setContext(apidef, event));
          }
       },
       serviceInit: function(){}
    });
-
-   $.widget("tane.TaneLocalStoreBase", $.tane.base, {
-   });
-
-   $.widget("tane.TaneUIPreference", $.tane.TaneLocalStoreBase, {
-      store: '',
-      init: function(){
-         this.store = new TanePreference();
-         for(var l=0; l<this.store.length; l++){
-            var data = this.store.at(l).toJSON();
-            var el = data["eid"];
-            var props = data["css"];
-            var keys = _.keys(props);
-            for(var i=0; i<keys.length; i++){
-               switch(keys[i]){
-                  case 'size':
-                     var width = props.size.width;
-                     var height = props.size.height;
-                     $('#'+el).width(width);
-                     $('#'+el).height(height);
-                     break;
-                  case 'position':
-                     var top = props.position.top;
-                     var left = props.position.left;
-                     $('#'+el).css({'top':top, 'left':left});
-                     break;
-                  case 'offset':
-//                     var offset = props[keys[i]].offset;
-//                     $('#'+el).offset(offset);
-                     break;
-                  case 'background-color':
-                     var rgba = _.property("background-color")(props);
-                     $('#'+el).css('background-color', rgba);
-                     break;
-               }// end of switch
-            } // end of for
-         } // end of for
-      },
-      globalEventListener: function(event, dataModel) {
-         switch(event.eventName()) {
-           case "edit":
-              var data = dataModel.getData();
-              if(this.store.GET('eid', data.eid) == undefined){
-                 this.store.POST(data);
-              }else{
-                 this.store.PUT('eid', data);
-              }
-              break;
-           case "reset":
-              this.store.RESET();
-              break;
-         } // switch
-      }
-   });	
-
-// local store
-   $.widget('tane.todostore', $.tane.TaneLocalStoreBase, {
-      store: '',
-      init: function(){
-         this.store = new TodoStorageService();
-         for(var i=0; i<this.store.length; i++){
-            var data = this.store.at(i).toJSON();
-            this.pubGlobalEvent('public/event/data/sync', data);
-         }
-      },
-
-      globalEventListener: function(event, data) {
-         switch(event) {
-         case "public/do/data/create":
-            var created = this.store.POST(data).toJSON();
-            break;
-         case "public/do/data/change":
-            var update = this.store.PUT('eid',data);
-            break;
-         case "public/do/data/delete":
-            this.store.DELETE(data);
-            break;
-         case "public/do/data/reset":
-            var model = this.store.RESET();
-            break;
-         } // switch
-      }
-   });
-
 })(jQuery);
 
 ///////////////////////////////////////////
@@ -153,7 +76,6 @@
 ///////////////////////////////////////////
 
 var TaneXHRService = Backbone.Collection.extend({
-
    wid: '',
    localTopic: '',
 
@@ -177,21 +99,21 @@ var TaneXHRService = Backbone.Collection.extend({
    },
 
 
-   GET: function(apidef, data, serviceInfo, origin) {
+   GET: function(args){
       try {	         
-         var xhr = this.OPEN(apidef, data, serviceInfo);
+         var xhr = this.OPEN(args);
          var taneData = new TaneModel();
-         if(RegExp('text','i').test(apidef.accept)){
+         if(RegExp('text','i').test(args.apidef.accept)){
             xhr.onload = function(e){
                var response = xhr.responseText;
-               taneData.setDataValue('response', response);
-               this.pubLocalEvent("local/api/"+apidef.apiname+"/response", taneData);
+               taneData.setData('response', response);
+               this.pubLocalEvent("local/api/"+args.apidef.apiname+"/response", taneData, args.origin);
             }.bind(this);
-         }else if(RegExp('json','i').test(apidef.accept)){
+         }else if(RegExp('json','i').test(args.apidef.accept)){
             xhr.onload = function(e){
                var response = JSON.parse(xhr.responseText);
-               taneData.setDataValue('response', response);
-               this.pubLocalEvent("local/api/"+apidef.apiname+"/response", taneData);
+               taneData.setData('response', response);
+               this.pubLocalEvent("local/api/"+args.apidef.apiname+"/response", taneData, args.origin);
             }.bind(this);
          }else{
             xhr.responseType = "arraybuffer";
@@ -199,8 +121,8 @@ var TaneXHRService = Backbone.Collection.extend({
                var arrayBuffer = xhr.response; // Note: not oReq.responseText
                if (arrayBuffer) {
                   var byteArray = new Uint8Array(arrayBuffer);
-                  taneData.setDataValue('response', byteArray);
-                  this.pubLocalEvent("local/api/"+apidef.apiname+"/response", taneData);
+                  taneData.setData('response', byteArray);
+                  this.pubLocalEvent("local/api/"+args.apidef.apiname+"/response", taneData, args.origin);
                   ;
                }
             }.bind(this);
@@ -211,31 +133,31 @@ var TaneXHRService = Backbone.Collection.extend({
       }
    },
 
-   POST: function(apidef, data, serviceInfo, origin) {
-      if(data==undefined || data=="") return {};
+   POST: function(args) {
+      if(args.data==undefined || args.data=="") return {};
       try {
-			var xhr = this.OPEN(apidef, data, serviceInfo);
-   	   if(apidef.contentType == 'application/json')
-      	   json =JSON.stringify(data);
+			var xhr = this.OPEN(args);
+   	   if(args.apidef.contentType == 'application/json')
+      	   json =JSON.stringify(args.data);
 	      else
-	      	json = data;
+	      	json = args.data;
          var taneData = new TaneModel();
-         if(apidef.responseType=="arraybuffer"){
-            xhr.responseType = apidef.responseType;
+         if(args.apidef.responseType=="arraybuffer"){
+            xhr.responseType = args.apidef.responseType;
             xhr.onload = function(e){
                var arrayBuffer = xhr.response; // Note: not oReq.responseText
                if (arrayBuffer) {
                   var byteArray = new Uint8Array(arrayBuffer);
-                  taneData.setDataValue('response', byteArray);
-                  this.pubLocalEvent("local/api/"+apidef.apiname+"/response", taneData, origin);
+                  taneData.setData('response', byteArray);
+                  this.pubLocalEvent("local/api/"+args.apidef.apiname+"/response", taneData, args.origin);
                   ;
                }
             }.bind(this);
          }else{
             xhr.onload = function(e){
                var resText = JSON.parse(xhr.responseText);
-               taneData.setDataValue('response', resText);
-               this.pubLocalEvent("local/api/"+apidef.apiname+"/response", taneData, origin);
+               taneData.setData('response', resText);
+               this.pubLocalEvent("local/api/"+args.apidef.apiname+"/response", taneData, args.origin);
             }.bind(this);
          }
          xhr.send(json);
@@ -244,117 +166,54 @@ var TaneXHRService = Backbone.Collection.extend({
       }
    },
 	
-	OPEN(apidef, data, serviceInfo){
-	   var url = serviceInfo.endpoint+apidef.uri;
+	OPEN(args){
+	   var url = args.serviceInfo.endpoint+args.uri;
 	   var xhr = new XMLHttpRequest();
 
-	   switch(serviceInfo.apiKeyType){
+	   switch(args.serviceInfo.apiKeyType){
 	   case 'uri':
-    	   url+='?'+serviceInfo.apiKeyName+'='+serviceInfo.apiKey;
-   	   xhr.open(apidef.method, url, true);   
+    	   url+='?'+args.serviceInfo.apiKeyName+'='+args.serviceInfo.apiKey;
+   	   xhr.open(args.apidef.method, url, true);   
     	   break;
 		case 'json':
-		   data[serviceInfo.apiKeyName] = serviceInfo.apiKey;
-     	   xhr.open(apidef.method, url, true);		   
+		   data[args.serviceInfo.apiKeyName] = args.serviceInfo.apiKey;
+     	   xhr.open(args.apidef.method, url, true);		   
     	   break;
 		case 'header':
-     	   xhr.open(apidef.method, url, true);
-		   xhr.setRequestHeader(serviceInfo.apiKeyName, serviceInfo.apiKey);
+     	   xhr.open(args.apidef.method, url, true);
+		   xhr.setRequestHeader(args.serviceInfo.apiKeyName, args.serviceInfo.apiKey);
     	   break;
 		case 'plaintext':
-		   data += '&'+serviceInfo.apiKeyName+'='+serviceInfo.apiKey;
-     	   xhr.open(apidef.method, url, true);		   
+		   data += '&'+args.serviceInfo.apiKeyName+'='+args.serviceInfo.apiKey;
+     	   xhr.open(args.apidef.method, url, true);		   
     	   break;
 		default:
-		   xhr.open(apidef.method, url, true);	
+		   xhr.open(args.apidef.method, url, true);	
     	   break;
 		}	   
 
-   	if(apidef.method=="GET"){
-   		if(data instanceof Object){
+   	if(args.apidef.method=="GET" && args.data){
+   		if(args.data instanceof Object){
    		   // child object cannot be converted to GET URI format.
    		   // this type object will make a problem.
    			var parms = "";
-   			Object.keys(data).forEach(function(key){
+   			Object.keys(args.data).forEach(function(key){
    				val = data[key];
    				parm = key +'='+ val;
    				parms += '&'+parm;
    			});
-   		}else var parms = '&'+data;
+   		}else var parms = '&'+args.data;
 //         if(url.search('?')) url=serviceInfo.endpoint+apidef.uri+parms;
 //         else url=serviceInfo.endpoint+apidef.uri+'?'+data;
       }	
 
-      if(apidef.accept){
-         xhr.setRequestHeader('Accept', apidef.accept);
+      if(args.apidef.accept){
+         xhr.setRequestHeader('Accept', args.apidef.accept);
       }
-		if(apidef.contenttype){
-         xhr.setRequestHeader("Content-Type", apidef.contenttype);
+		if(args.apidef.contenttype){
+         xhr.setRequestHeader("Content-Type", args.apidef.contenttype);
       }
 		return xhr;
 	},
    responseListener: function(event, data){}
-});
-
-// Local storage
-
-var TaneStorageProto = Backbone.Collection.extend({
-//   localStorage: new Backbone.LocalStorage("demo"),
-   model: TaneModel,
-
-   initialize: function(){
-      this.fetch();
-      ;
-   },
-   localEventListener: function(event, data){
-   },
-
-   GET: function(key, value){
-      var attr = {};
-      attr[key]= value;
-      var model = this.findWhere(attr);
-      if(model){
-         return model;
-      }else{
-         return undefined;
-      }
-   },
-
-   POST: function(data){
-//      var model = new TaneModel();
-//      model.xhrdata);
-//      model.unset('id');
-//      var created = this.create(model);
-      var model = new TaneModel();
-      model.set(data);
-      model.unset('id');
-      return this.create(model.toJSON());
-//      return this.findWhere(model.toJSON()).toJSON();
-   },
-   PUT: function(key, data){
-      var model = this.GET(key, data[key]);
-      if(model != undefined){
-         var attr = _.clone(model.attributes);
-         extendObj(attr, data);
-         model.set(attr);
-         model.save();
-      }
-      return model;
-   },
-   DELETE: function(data){
-      var target = this.findWhere(data);
-      if(target){
-         target.destroy();
-         return target;
-      }else{
-         return undefined;
-      }
-   },
-   RESET: function(){
-      this.reset();
-   },
-});
-
-var TanePreference = TaneStorageProto.extend({
-   localStorage: new Backbone.LocalStorage("pref"),
 });

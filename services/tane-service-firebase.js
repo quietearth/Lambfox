@@ -71,27 +71,14 @@
             break;
          case "get":
 	  		   var dataModel = new TaneModel();          		      
- 		      if(!qstr){
- 		         firebase.database().ref(pathname).on("value", function(dataSnapshot){
-         			var name = dataSnapshot.toString().split(this.options.dbdomain+'/')[1];
-      	      	var event2 = new TaneEvent(this.options.name);
-		       	   event2.eventName('get>response').setParm('pathname', pathname).destination(event.originName());
-         	      var newdata = new TaneModel();			
-      				newdata.setData(dataSnapshot.val());  				   
-         	      newdata.dataName(pathname);			       	   
-   	            this.pubGlobalEvent(event2, newdata);		            				      				
-		         }.bind(this));		         
-   	      }else{
-   	         firebase.database().ref(pathname).orderByChild('type').on("value", function(snapshot){
-         			var name = dataSnapshot.toString().split(this.options.dbdomain+'/')[1];
-      	      	var event2 = new TaneEvent(this.options.name);
-		       	   event2.eventName('get>response').setParm('pathname', name).destination(event.originName());
-         	      var newdata = new TaneModel();			
-      				newdata.setData(dataSnapshot.val());
-         	      newdata.dataName(pathname);		    	   	       	   
-   	            this.pubGlobalEvent(event2, newdata);		            				
-   	         }.bind(this));
-		      }
+	         firebase.database().ref(pathname).on("value", function(dataSnapshot){
+     	      	var event2 = new TaneEvent(this.options.name);
+	       	   event2.eventName('get>response').setParm('pathname', pathname).destination(event.originName());
+        	      var newdata = new TaneModel();			
+     				newdata.setData(dataSnapshot.val());  				   
+        	      newdata.dataName(pathname);			       	   
+  	            this.pubGlobalEvent(event2, newdata);		            				      				
+	         }.bind(this));		         
             break;
          case "remove":      
             firebase.database().child(rsname).remove();
@@ -106,8 +93,8 @@
             break;
 			case "signIn":			   
 			   switch(dataModel.getData('provider')){
-			   case 'email':  	var provider = new firebase.auth.EmailAuthProvider();
-			                    	break;
+//			   case 'email':  	var provider = new firebase.auth.EmailAuthProvider();
+//			                    	break;
 			   case 'twitter':  	var provider = new firebase.auth.TwitterAuthProvider();
 			                    	break;
 			   case 'facebook': 	var provider = new firebase.auth.FacebookAuthProvider();
@@ -119,20 +106,18 @@
 			   default:				
 			      var email = dataModel.getData("email");
 			   	var password = dataModel.getData("password");
-			   	firebase.auth().onAuthStateChanged(function(user){
+					this.event = new TaneEvent(this.options.name);
+					this.event.destination(event.originName());
+					firebase.auth().signInWithEmailAndPassword(email, password)
+					.then(function(user){
 			         if(user){
-							var event2 = new TaneEvent(this.options.name);
-							event2.eventName('signIn>success').destination(event.originName());
 						   var taneData = new TaneModel();
-						   var hoge = user.uid;
-					      this.pubGlobalEvent(event2, taneData, '');           
-			         }else{
-//			 		      var event = new TaneEvent('firebase').eventName('signIn>error');
-   				      var taneData = null;
-//							this.pubGlobalEvent(event, taneData, option);         
-   			      }
-   			   }.bind(this));
-					firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+						   taneData.setData(user.toJSON());
+							this.event.eventName('signIn>success');
+					      this.pubGlobalEvent(this.event, taneData);           
+						}
+					}.bind(this))
+					.catch(function(error) {
 						var errorCode = error.code;
 						var errorMessage = error.message;
       			   var event2 = new TaneEvent(this.options.name);

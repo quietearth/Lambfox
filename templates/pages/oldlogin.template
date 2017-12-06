@@ -1,0 +1,55 @@
+<div class="tane-widget-top resizable draggable panel panel-default ui-widget">
+
+  <div class="panel-heading bg-primary">
+    <h3 class="panel-title ui-title">Welcome to Lambfox Project</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="col-sm-12">
+      <h1>Welcome to Lambfox project.</h1>
+      <section>
+        Enjoy High Quality Virtual Reality Videos without Network Delay.
+        <hr>
+        <form class="form-group">
+          Login with your email address
+          <input type="text" placeholder="your_email@mail.com" class="form-control textinput required" x-data-keyname="email"></input><br />
+          <input type="password" placeholder="password" class="form-control textinput required" x-data-keyname="password"></input>          
+          <br/>
+          <button type="button" class="btn btn-primary simple_button" x-data-xevent="public/do/lambfoxbase/signIn">OK</button>
+        </form>     
+        <hr>           
+        <form class="form_validate">
+          Or signIn with one of the following ID.
+          <ul class="selectable list-inline" x-data-selectableType="static" x-data-keyname="provider">
+            <li class="ui-selectable" x-data-value="twitter"><img src="Icons/PNG/twitter256.png" width="50" height="50"></img></li>
+            <li class="ui-selectable" x-data-value="google"><img src="Icons/PNG/google256.png" width="50" height="50"></img></li>
+            <li class="ui-selectable" x-data-value="facebook"><img src="Icons/PNG/facebook256.png" width="50" height="50"></img></li>
+            <li class="ui-selectable" x-data-value="github"><img src="Icons/PNG/github256.png" width="50" height="50"></img></li>
+          </ul>
+          <button type="button" class="btn btn-primary simple_button">Sign In
+            <script class="xeventTmpl" x-data-templateType="keyname" type="text/x-jquery-tmpl">
+             type=public;destination=lambfoxbase;eventName=signIn
+            </script>
+          </button>
+        </form>
+        <hr>
+        Are you new?
+        Begin Here.<br />
+        <button type="button" class="btn btn-primary  simple_button" x-data-xevent="type=public;destination=widgetManager;eventName=start?name=SignUp" x-data-xeventOption="sec0">Sign Up</button>
+      </section>
+    </div>
+
+    <div class="simple_dialog">
+  	  <div class="simple_dialog_content" x-data-message="error">
+    	<section class="static_element">Error
+      	<script type="text/template" class="jqtmpl">
+        	<p>>${code}</li>
+      	</script>    
+      <section>    
+    	<button type="button" class="btn simple_button" x-data-localevent="close">OK</button>
+  	  </div>
+    </div>
+
+  </div>
+  
+</div>

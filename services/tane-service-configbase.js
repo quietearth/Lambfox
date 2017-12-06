@@ -1,20 +1,23 @@
 (function($) {
 // Firebase for tane.zero
    $.widget("tane.TaneConfigBase", $.tane.TaneServiceBase, {
-      apidef: [{"configbase":{}}],
       serviceInfo: {
          servicename: "configbase", 
-         endpointHost: 'http://10.0.0.1',        
+         endpoint: 'http://192.168.1.11:8000',        
 		},
       apidef: {
-         "config": {
-            apiname: 'config',
+         "get": {
+            apiname: 'get',
             comment: 'Lambfox nconf data API',
             inboundEvent: "get",
             outboundEvent: "get>response",
             method: "GET",
+            accept: "json",
             uri: '/config',
          }
+      },
+      setURI: function(apidef, event, data){
+         return apidef.uri+'?objectname='+event.getParm('pathname')
       }
    });
 })(jQuery);

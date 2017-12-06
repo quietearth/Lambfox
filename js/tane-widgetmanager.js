@@ -79,7 +79,7 @@
 	         this.startWidget(d, section, startOption);
 		   	this.pubGlobalEvent(orgEvent, data, startOption);
             break;
-		 	case 'showReward':
+		 	case 'getBack':
 		 		if(!option) break;
 		 	   var history = this.activeWidgets.get(option);
 		 	   var l = history.length;

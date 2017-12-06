@@ -21,7 +21,8 @@
 		   	{elementType: '.camera',		  compName: 'SimpleCamera',         jsFile:'/ui-parts/tane-simple_camera'},
 		   	{elementType: '.form_validate', compName: 'FormValidator',        jsFile:'/ui-parts/tane-form_validator'},
 		   	{elementType: '.bitmovinplayer',compName: 'SimpleBitmovinPlayer', jsFile:'/ui-parts/tane-bitmovin_player'},
-		   	{elementType: '.simple_accordion', compName: 'SimpleAccordion',   jsFile:'/ui-parts/tane-simple_accordion'}		   			   	
+		   	{elementType: '.vrviewplayer',  compName: 'VRViewPlayer',         jsFile:'/ui-parts/tane-vr_view'},  			   	
+		   	{elementType: '.simple_accordion', compName: 'SimpleAccordion',   jsFile:'/ui-parts/tane-simple_accordion'}
          ]
       },
    });
@@ -354,8 +355,7 @@
          }else{
             var mylocation = this.locationID;
          }
-         var id = option;
-         if(id!=mylocation) return false;
+         if(option!=mylocation && option!="*") return false;
          if(this.active==false) return false;
          this.getInvisible(this.wid);         
          return false;
@@ -629,7 +629,7 @@
    }
 
    $.tane.base.prototype.getInvisible = function(){
-      $('#'+this.wid).hide('slide', {direction: 'right'});
+      $('#'+this.wid).hide('fade');
       var data = new TaneModel();
       var info = {"eid": this.locationID, "wid":this.wid, "icon":this.options.icon, "name":this.options.name};
       data.setData('name', info);
@@ -639,7 +639,7 @@
    }
 
    $.tane.base.prototype.getVisible = function(){
-      $('#'+this.wid).show('slide', {direction: 'left'});
+      $('#'+this.wid).show('fade');
       var data = new TaneModel();
       var info = {"eid": this.locationID, "wid":this.wid, "icon":this.options.icon, "name":this.options.name};
       data.setData('name', info);

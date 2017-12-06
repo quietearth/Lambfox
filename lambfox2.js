@@ -29,7 +29,7 @@ require.config({
          deps: ['jquery']
       },               
       'tane.base': { 
-         deps: ['jquery', 'jquery.ui', 'jquery.tmpl', 'underscore', 'backbone', 'pubsub', 'backbone.localstorage', 'tane.utils'],
+         deps: ['jquery', 'jquery.ui', 'jquery.tmpl', 'underscore', 'backbone', 'pubsub', 'tane.utils'],
          exports: 'tane'
       },
       'tane.controller': { 
@@ -60,14 +60,14 @@ require.config({
       }      
    },
    paths: {
-      'jquery': '//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min',
-      'jquery.ui': '//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min',
+      'jquery': '/js/jquery-3.2.1.min',
+      'jquery.ui': '/js/jquery-ui.min',
       'jquery.tmpl': '/js/jquery-tmpl.min',
       'jquery.validate': '/js/jquery.validate.min',
-      'underscore': '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min',
-      'backbone': '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min',
-      'backbone.localstorage': '//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min',
-      'bootstrap': 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min',
+      'underscore': '/js/underscore-min',
+      'backbone': '/js/backbone-min',
+ //     'backbone.localstorage': '/js/backbone.localStorage-min',
+      'bootstrap': '/js/bootstrap.min',
       'pubsub': '/js/pubsub',
       'jquery.balloon': '/js/jquery.balloon',
       'tane.utils': '/js/tane-utils',
@@ -79,7 +79,7 @@ require.config({
       'tane.ui.widgets': '/guis/tane-ui-widgets',
       'tane.ui.base': '/ui-parts/tane-ui-base',     
 	   'tane.configbase': '/services/tane-service-configbase',      
-      'tane.dbmgr': 'services/tane-service-dbmgr2'
+      'tane.dbmgr': '/services/tane-service-dbmgr2'
    }
 });
 

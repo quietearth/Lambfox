@@ -80,7 +80,7 @@ require.config({
       'tane.ui.base': '/ui-parts/tane-ui-base',
       'firebase': 'https://www.gstatic.com/firebasejs/4.2.0/firebase',      
 	   'tane.firebase': '/services/tane-service-firebase',      
-      'tane.dbmgr': 'services/tane-service-dbmgr'
+      'tane.dbmgr': '/services/tane-service-dbmgr'
    }
 });
 

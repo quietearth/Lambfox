@@ -28,6 +28,8 @@ var SimpleButton = TaneBaseView.extend({
         var xevent = event +'?'+ this.xevent;
       else var xevent = event;
       
+      var keyvalue = this.$el.attr('x-data-value');
+      model.setData(this.keyname, keyvalue);
 	   this.pubLocalEvent( xevent, model, this.xeventOption);
 	   
    	if(this.localevent) this.pubLocalEvent( "local/event/*/"+this.localevent, model, this.xeventOption);

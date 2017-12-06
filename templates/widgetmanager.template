@@ -3,7 +3,7 @@
 </STYLE>
 
 <div class="tane-widget-top">
-  <div class="panel ui-widget-content ui-state-default">
+  <div>
     <br/>
     <ul class="selectable list-inline">
       <script type="text/template" class="jqtmpl">

@@ -1,0 +1,70 @@
+   <meta charset="utf-8">
+   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+   <link href="/css/style.css" rel="stylesheet">
+
+<div class="tane-widget-top">
+   <div class="container">
+      <div class="c1">
+         <div class="c11">
+            <h1 class="mainhead">Welcome To Lambfox<br>VR Space Project</h1>
+            <p class="mainp">Just click the buttons to SignIn or SignUp</p>
+         </div>
+         <div id="left"><h2 class="s1class"><span>SIGN IN</span></h2></div>
+         <div id="right"><h2 class="s2class"><span>SIGN UP</span></h2></div>
+      </div>
+      <br><br>
+      <div class="c2">
+         <form class="signup" action="/signup" method="post">
+         
+            <h1 class="signup1">SIGN UP</h1>
+            
+			   <input name="username" type="text" placeholder="Username*" class="username"/>
+			
+			   <input name="email" type="text" placeholder="Email*" class="username"/>
+			
+			   <input name="password" type="password" placeholder="Password*" class="username"/>
+         
+            <button class="btn" type="submit" value="OK">>Sign Up</button>
+         </form>
+         <form class="signin" action="/admin" method="post">
+         
+            <h1 class="signup1">SIGN IN</h1>
+            
+            <input type="text" placeholder="Your email address" class="username form-control textinput required" x-data-keyname="email">
+
+            <input type="password" placeholder="Password*" class="username form-control textinput required" x-data-keyname="password">
+			
+            <button type="button" class="btn simple_button" x-data-keyname="provider" x-data-value="email" x-data-xevent="public/do/lambfoxbase/signIn">Get Started</button>
+         
+            <a href=""><p class="signup2">Forget Password?</p></a>
+         </form>
+      </div>
+   </div>
+   <script>
+$(document).ready(function(){
+   $(".container").fadeIn(1000);
+   $(".s1class").css({"color":"#EE9BA3"});
+   $(".s2class").css({"color":"#748194"}); 
+   $("#right").removeClass("right_hover");
+   $("#left").addClass("left_hover");
+   $(".signup").css({"display":"none"});
+   $(".signin").css({"display":""});
+});
+$("#right").click(function(){
+   $("#left").removeClass("left_hover");
+   $(".s2class").css({"color":"#EE9BA3"});
+   $(".s1class").css({"color":"#748194"});
+   $("#right").addClass("right_hover");
+   $(".signin").css({"display":"none"});
+   $(".signup").css({"display":""});
+});
+$("#left").click(function(){
+   $(".s1class").css({"color":"#EE9BA3"});
+   $(".s2class").css({"color":"#748194"}); 
+   $("#right").removeClass("right_hover");
+   $("#left").addClass("left_hover");
+   $(".signup").css({"display":"none"});
+   $(".signin").css({"display":""});
+});
+   </script>
+</div>

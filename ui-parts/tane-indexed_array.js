@@ -13,7 +13,8 @@
 var IndexedArrayList = SimpleSelectableList.extend({
 
    selected: function(e, ui){
-//     var selectable = "#"+$(this.el).attr("id")+" "+$(ui.selected).prop("tagName");
+//      var selectable = $(ui.selected).attr('x-data-selectable');
+//      if(!selectable) return;
       this.current = ui.selected;
       var id = $(ui.selected).attr('id');
 	   var data = getBindData('#'+id, 'DATA');

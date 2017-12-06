@@ -1,0 +1,27 @@
+<style>
+.panel-body { 
+   background: #ccc;
+   list-style-type: none; 
+   margin: auto;
+   padding: 0;
+}
+
+.panel-body li { 
+   list-style-type: none;
+   margin: 3px; 
+   padding: 0.4em; 
+   float: left;
+   text-align: center;
+}
+
+</style>
+
+<div class="tane-widget-top ui-widget-content ui-state-default" x-init-event="public/do/lambfoxbase/get?pathname=apps/RelaxationSpace/menus/Footer">
+  <div class="panel-body">
+    <ul class="indexarray list-group">
+      <script type="text/x-jquery-tmpl" class="jqtmpl">
+        <li class="ui-selectable x-selectable-event itemstyle bg-info">${displayname}</li>
+      </script>
+    </ul>
+  </div>
+</div>

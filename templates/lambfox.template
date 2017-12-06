@@ -1,7 +1,9 @@
+
 <div class="tane-widget-top">
-   <div id="sec0" class="container-fluid col-md-12"></div>
-   <div id="sec1" class="container-fluid col-md-12"></div>
-	<div id="sec2" class="container-fluid col-md-12"></div>
-   <div id="secz" class="container-fluid col-md-12"></div>
+   <div id="sec0"></div>
+   <div id="sec1"></div>
+	<div id="sec2"></div>
+	<div id="sec9"></div>
+   <div id="secz"></div>
 </div>
    

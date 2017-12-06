@@ -1,0 +1,26 @@
+  <style>
+.player-wrapper {
+   width:        100%;
+   margin-right: auto;
+   margin-left:  auto;
+   box-shadow:   0 0 30px rgba(0,0,0,0.7);
+}
+.array{
+   background: #ccc;
+   width:350px;
+   height:200px;
+   position: relative;
+   border-radius:10px;
+   box-shadow: 10px 10px 10px rgba(0,0,0,0.4); 
+   text-align: center;
+   margin:0 auto;
+   top: 10px;
+   font-family: "Dosis";   
+}  
+  </style>
+
+<div class="tane-widget-top array" x-init-event="public/do/lambfoxbase/get?pathname=apis/BitmovinRESTAPI/serviceInfo">
+  <div class="player-wrapper">
+    <div class="bitmovinplayer"></div>
+  </div>
+</div>
